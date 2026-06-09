@@ -6,12 +6,12 @@ export function ValueProp() {
       <div className="mx-auto max-w-3xl px-6 py-28 text-center sm:py-36 lg:px-10">
         <Reveal>
           <p className="text-[11px] uppercase tracking-[0.32em] text-olive">Nuestra filosofía</p>
-          <h2 className="mt-8 text-3xl leading-tight text-ink sm:text-4xl md:text-5xl">
+          <h2 className="mt-8 text-3xl font-light uppercase leading-[1.2] tracking-[0.1em] text-ink sm:text-4xl md:text-5xl">
             No se trata solo de decorar un espacio.
             <br />
-            <span className="italic text-muted-ink">Se trata de cómo se siente.</span>
+            <span className="font-extralight text-muted-ink">Se trata de cómo se siente.</span>
           </h2>
-          <p className="mx-auto mt-10 max-w-2xl text-base leading-relaxed text-muted-ink sm:text-lg">
+          <p className="mx-auto mt-10 max-w-2xl text-base font-light normal-case leading-relaxed text-muted-ink sm:text-lg" style={{ textTransform: "none" }}>
             En VivirBonito diseñamos espacios verdes que combinan estética, funcionalidad y
             naturaleza, logrando ambientes que transmiten calma, orden y sofisticación.
           </p>

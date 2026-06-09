@@ -14,6 +14,7 @@ type Collection = {
   message: string;
   image: string;
   alt: string;
+  accent: string;
 };
 
 const collections: Collection[] = [
@@ -28,6 +29,7 @@ const collections: Collection[] = [
     message: "Hola VivirBonito, me interesa la línea Contemporánea para mi espacio.",
     image: contemporaneaAsset.url,
     alt: "Macetas Bola Series de gran formato en color carbón sobre terraza",
+    accent: "var(--olive)",
   },
   {
     eyebrow: "02 / Nature",
@@ -40,6 +42,7 @@ const collections: Collection[] = [
     message: "Hola VivirBonito, me gustaría ver los formatos disponibles de la línea Nature.",
     image: natureAsset.url,
     alt: "Maceta colgante con planta de hojas largas entre árboles",
+    accent: "var(--olive-soft)",
   },
   {
     eyebrow: "03 / Petite",
@@ -52,6 +55,7 @@ const collections: Collection[] = [
     message: "Hola VivirBonito, me interesa el catálogo de la línea Petite y parantes.",
     image: petiteAsset.url,
     alt: "Macetas Petite blancas y cacao sobre parantes dorados",
+    accent: "var(--olive-pale)",
   },
 ];
 
@@ -61,8 +65,8 @@ export function Collections() {
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-10">
         <Reveal>
           <div className="mb-16 max-w-2xl">
-            <p className="text-[11px] uppercase tracking-[0.32em] text-olive">Catálogo curado</p>
-            <h2 className="mt-5 text-3xl text-ink sm:text-4xl md:text-5xl">
+            <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-olive">Catálogo curado</p>
+            <h2 className="mt-5 text-3xl font-light uppercase tracking-[0.1em] text-ink sm:text-4xl md:text-5xl">
               Tres líneas estéticas, una sola búsqueda: equilibrio.
             </h2>
           </div>
@@ -72,6 +76,7 @@ export function Collections() {
           {collections.map((c, i) => (
             <Reveal key={c.title} delay={i * 120}>
               <article className="group flex h-full flex-col">
+                <div className="mb-5 h-px w-12" style={{ backgroundColor: c.accent }} />
                 <div className="relative aspect-[4/5] overflow-hidden bg-bone">
                   <img
                     src={c.image}
@@ -81,23 +86,27 @@ export function Collections() {
                   />
                 </div>
                 <div className="flex flex-1 flex-col pt-7">
-                  <p className="text-[11px] uppercase tracking-[0.28em] text-olive">{c.eyebrow}</p>
-                  <h3 className="mt-4 text-2xl leading-snug text-ink sm:text-[26px]">{c.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-ink">{c.description}</p>
+                  <p className="text-[11px] font-medium uppercase tracking-[0.28em]" style={{ color: c.accent }}>
+                    {c.eyebrow}
+                  </p>
+                  <h3 className="mt-4 text-xl font-normal uppercase leading-snug tracking-[0.08em] text-ink sm:text-[22px]">
+                    {c.title}
+                  </h3>
+                  <p className="mt-4 text-sm font-light leading-relaxed text-muted-ink">{c.description}</p>
 
                   <div className="mt-6 border-t border-hairline pt-5">
-                    <p className="text-[10px] uppercase tracking-[0.24em] text-muted-ink/80">
+                    <p className="text-[10px] uppercase tracking-[0.24em] text-muted-ink/70">
                       Modelos destacados
                     </p>
-                    <p className="mt-2 text-sm text-ink">{c.models.join(" · ")}</p>
-                    <p className="mt-3 text-xs text-muted-ink">{c.meta}</p>
+                    <p className="mt-2 text-sm font-light text-ink">{c.models.join(" · ")}</p>
+                    <p className="mt-3 text-xs font-light text-muted-ink">{c.meta}</p>
                   </div>
 
                   <a
                     href={waUrl(c.message)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-8 inline-flex w-fit items-center gap-2 border-b border-olive pb-1 text-sm font-medium text-olive transition-colors hover:text-olive-deep"
+                    className="mt-8 inline-flex w-fit items-center gap-2 border-b border-olive pb-1 text-xs font-medium uppercase tracking-[0.16em] text-olive transition-colors hover:text-olive-soft"
                   >
                     {c.cta}
                     <span aria-hidden="true">→</span>

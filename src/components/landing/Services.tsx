@@ -25,8 +25,8 @@ export function Services() {
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-10">
         <Reveal>
           <div className="mb-16 max-w-2xl">
-            <p className="text-[11px] uppercase tracking-[0.32em] text-olive">Qué hacemos</p>
-            <h2 className="mt-5 text-3xl text-ink sm:text-4xl md:text-5xl">
+            <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-olive">Qué hacemos</p>
+            <h2 className="mt-5 text-3xl font-light uppercase tracking-[0.1em] text-ink sm:text-4xl md:text-5xl">
               Servicios a medida para cada espacio.
             </h2>
           </div>
@@ -35,10 +35,10 @@ export function Services() {
         <div className="grid gap-12 md:grid-cols-3 md:gap-10">
           {services.map((s, i) => (
             <Reveal key={s.title} delay={i * 100}>
-              <div className="flex h-full flex-col border-t border-ink pt-6">
-                <span className="font-serif text-3xl text-olive">{s.n}</span>
-                <h3 className="mt-6 text-xl text-ink sm:text-2xl">{s.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-ink">{s.body}</p>
+              <div className="flex h-full flex-col border-t border-hairline pt-6">
+                <span className="text-3xl font-extralight tracking-[0.08em] text-olive">{s.n}</span>
+                <h3 className="mt-6 text-xl font-normal uppercase tracking-[0.08em] text-ink sm:text-[22px]">{s.title}</h3>
+                <p className="mt-4 text-sm font-light leading-relaxed text-muted-ink">{s.body}</p>
               </div>
             </Reveal>
           ))}
@@ -50,7 +50,7 @@ export function Services() {
               href={waUrl("Hola VivirBonito, quiero solicitar una propuesta personalizada para un proyecto.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-olive px-8 py-4 text-sm font-medium tracking-wide text-white transition-colors hover:bg-olive-deep"
+              className="inline-flex items-center justify-center rounded-full bg-olive px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-white transition-colors hover:bg-olive-soft hover:text-ink"
             >
               Solicitar propuesta personalizada
             </a>
