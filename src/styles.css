@@ -5,8 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
 }
 
 /*
@@ -72,15 +71,17 @@
   --bone: oklch(0.984 0.002 80);
   --foreground: oklch(0.18 0 0);
   --muted-ink: oklch(0.55 0 0);
-  --olive: oklch(0.74 0.18 130);
-  --olive-deep: oklch(0.62 0.17 130);
-  --hairline: oklch(0.9 0 0);
+  --olive: #8FBF26;
+  --olive-soft: #B2D95F;
+  --olive-pale: #C9D98F;
+  --olive-deep: #8FBF26;
+  --hairline: oklch(0.94 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.18 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0 0);
-  --primary: oklch(0.74 0.18 130);
-  --primary-foreground: oklch(0.18 0 0);
+  --primary: #8FBF26;
+  --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
@@ -159,9 +160,10 @@
   }
 
   h1, h2, h3 {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 }
 
@@ -171,6 +173,8 @@
   --color-muted-ink: var(--muted-ink);
   --color-olive: var(--olive);
   --color-olive-deep: var(--olive-deep);
+  --color-olive-soft: var(--olive-soft);
+  --color-olive-pale: var(--olive-pale);
   --color-hairline: var(--hairline);
 }
 

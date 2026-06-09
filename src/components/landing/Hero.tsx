@@ -17,7 +17,7 @@ export function Hero() {
           <p className="mb-6 text-[11px] uppercase tracking-[0.32em] text-white/80">
             Boutique de macetas · Deco &amp; Design
           </p>
-          <h1 className="text-4xl leading-[1.05] sm:text-5xl md:text-6xl lg:text-[68px]">
+          <h1 className="text-4xl font-extralight uppercase leading-[1.05] tracking-[0.12em] sm:text-5xl md:text-6xl lg:text-[64px]">
             Macetas y diseño verde para transformar tus espacios
           </h1>
           <p className="mt-7 max-w-xl text-base font-light leading-relaxed text-white/90 sm:text-lg">
@@ -29,13 +29,13 @@ export function Hero() {
               href={waUrl("Hola VivirBonito, me gustaría agendar una asesoría para diseñar mi espacio.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-olive px-8 py-4 text-sm font-medium tracking-wide text-white transition-colors hover:bg-olive-deep"
+              className="inline-flex items-center justify-center rounded-full bg-olive px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-white transition-colors hover:bg-olive-soft hover:text-ink"
             >
               Agendar Asesoría
             </a>
             <a
               href="#colecciones"
-              className="inline-flex items-center justify-center rounded-full border border-white/70 px-8 py-4 text-sm font-medium tracking-wide text-white transition-colors hover:bg-white hover:text-ink"
+              className="inline-flex items-center justify-center rounded-full border border-white/70 px-8 py-4 text-xs font-medium uppercase tracking-[0.18em] text-white transition-colors hover:bg-white hover:text-ink"
             >
               Ver Colecciones
             </a>
