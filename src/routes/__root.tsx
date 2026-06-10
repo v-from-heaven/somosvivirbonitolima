@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Vivir Bonito | Deco & Design" },
+      { name: "description", content: "VivirBonito Oasis es una landing page de exhibición que presenta macetas de diseño y estilismo de espacios verdes." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Vivir Bonito | Deco & Design" },
+      { property: "og:description", content: "VivirBonito Oasis es una landing page de exhibición que presenta macetas de diseño y estilismo de espacios verdes." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Vivir Bonito | Deco & Design" },
+      { name: "twitter:description", content: "VivirBonito Oasis es una landing page de exhibición que presenta macetas de diseño y estilismo de espacios verdes." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/WNawOsjvfxQoCZs0skC7dzCBjbG3/social-images/social-1781099566986-59290.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/WNawOsjvfxQoCZs0skC7dzCBjbG3/social-images/social-1781099566986-59290.webp" },
     ],
     links: [
       {
