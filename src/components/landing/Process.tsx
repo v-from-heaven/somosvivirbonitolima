@@ -12,8 +12,8 @@ export function Process() {
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-10">
         <Reveal>
           <div className="mb-16 max-w-2xl">
-            <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-olive">Cómo trabajamos</p>
-            <h2 className="mt-5 text-3xl font-light uppercase tracking-[0.1em] text-ink sm:text-4xl md:text-5xl">
+            <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-olive">Cómo trabajamos</p>
+            <h2 className="mt-5 text-3xl font-semibold tracking-tight text-ink sm:text-4xl md:text-5xl">
               Un proceso simple, pensado para el detalle.
             </h2>
           </div>
@@ -24,11 +24,11 @@ export function Process() {
             <Reveal key={s.n} delay={i * 100}>
               <div className="flex h-full flex-col">
                 <div className="flex items-baseline gap-4">
-                  <span className="text-5xl font-extralight tracking-tight text-olive">{s.n}</span>
+                  <span className="text-5xl font-semibold tracking-tight text-olive">{s.n}</span>
                   <div className="h-px flex-1 bg-hairline" />
                 </div>
-                <h3 className="mt-6 text-xl font-normal uppercase tracking-[0.08em] text-ink sm:text-[22px]">{s.title}</h3>
-                <p className="mt-3 text-sm font-light leading-relaxed text-muted-ink">{s.body}</p>
+                <h3 className="mt-6 text-xl font-medium text-ink sm:text-[22px]">{s.title}</h3>
+                <p className="mt-3 text-sm font-normal leading-relaxed text-muted-ink">{s.body}</p>
               </div>
             </Reveal>
           ))}

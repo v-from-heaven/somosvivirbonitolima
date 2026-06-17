@@ -12,7 +12,7 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.28em] text-muted-ink">Showroom</p>
+            <p className="text-xs font-semibold text-ink">Showroom</p>
             <p className="mt-4 text-sm leading-relaxed text-ink">
               Av. Daniel Hernández 128
               <br />
@@ -20,7 +20,7 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.28em] text-muted-ink">Contacto</p>
+            <p className="text-xs font-semibold text-ink">Contacto</p>
             <p className="mt-4 text-sm leading-relaxed text-ink">
               WhatsApp +51 932 572 455
               <br />
@@ -30,7 +30,7 @@ export function Footer() {
         </div>
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-hairline pt-6 text-xs text-muted-ink sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} VivirBonito Deco &amp; Design. Todos los derechos reservados.</p>
-          <p className="uppercase tracking-[0.18em]">Boutique de macetas · Lima</p>
+          <p className="font-normal">Boutique de macetas · Lima</p>
         </div>
       </div>
     </footer>
