@@ -65,8 +65,8 @@ export function Collections() {
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-10">
         <Reveal>
           <div className="mb-16 max-w-2xl">
-            <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-olive">Catálogo curado</p>
-            <h2 className="mt-5 text-3xl font-light uppercase tracking-[0.1em] text-ink sm:text-4xl md:text-5xl">
+            <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-olive">Catálogo curado</p>
+            <h2 className="mt-5 text-3xl font-semibold tracking-tight text-ink sm:text-4xl md:text-5xl">
               Tres líneas estéticas, una sola búsqueda: equilibrio.
             </h2>
           </div>
@@ -86,27 +86,27 @@ export function Collections() {
                   />
                 </div>
                 <div className="flex flex-1 flex-col pt-7">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.28em]" style={{ color: c.accent }}>
+                  <p className="text-[11px] font-medium uppercase tracking-[0.24em]" style={{ color: c.accent }}>
                     {c.eyebrow}
                   </p>
-                  <h3 className="mt-4 text-xl font-normal uppercase leading-snug tracking-[0.08em] text-ink sm:text-[22px]">
+                  <h3 className="mt-4 text-xl font-medium leading-snug text-ink sm:text-[22px]">
                     {c.title}
                   </h3>
-                  <p className="mt-4 text-sm font-light leading-relaxed text-muted-ink">{c.description}</p>
+                  <p className="mt-4 text-sm font-normal leading-relaxed text-muted-ink">{c.description}</p>
 
                   <div className="mt-6 border-t border-hairline pt-5">
-                    <p className="text-[10px] uppercase tracking-[0.24em] text-muted-ink/70">
+                    <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-ink/70">
                       Modelos destacados
                     </p>
-                    <p className="mt-2 text-sm font-light text-ink">{c.models.join(" · ")}</p>
-                    <p className="mt-3 text-xs font-light text-muted-ink">{c.meta}</p>
+                    <p className="mt-2 text-sm font-normal text-ink">{c.models.join(" · ")}</p>
+                    <p className="mt-3 text-xs font-normal text-muted-ink">{c.meta}</p>
                   </div>
 
                   <a
                     href={waUrl(c.message)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-8 inline-flex w-fit items-center gap-2 border-b border-olive pb-1 text-xs font-medium uppercase tracking-[0.16em] text-olive transition-colors hover:text-olive-soft"
+                    className="mt-8 inline-flex w-fit items-center gap-2 border-b border-olive pb-1 text-sm font-medium text-olive transition-colors hover:text-olive-soft"
                   >
                     {c.cta}
                     <span aria-hidden="true">→</span>
