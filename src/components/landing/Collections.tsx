@@ -1,7 +1,8 @@
 import contemporaneaAsset from "@/assets/contemporanea.jpg.asset.json";
 import natureAsset from "@/assets/nature.jpg.asset.json";
 import petiteAsset from "@/assets/petite.jpg.asset.json";
-import { waUrl } from "@/lib/whatsapp";
+import { Link } from "@tanstack/react-router";
+import type { CollectionSlug } from "@/data/catalog";
 import { Reveal } from "./Reveal";
 
 type Collection = {
@@ -11,7 +12,7 @@ type Collection = {
   models: string[];
   meta: string;
   cta: string;
-  message: string;
+  slug: CollectionSlug;
   image: string;
   alt: string;
   accent: string;
@@ -23,10 +24,10 @@ const collections: Collection[] = [
     title: "Línea Arquitectónica & Contemporánea",
     description:
       "Piezas geométricas de gran escala y alta durabilidad en Polietileno HD, ideales para interiores modernos y exteriores exigentes. Incluye sistemas de Auto Riego.",
-    models: ["Bola Series", "Cylindro", "Quattro", "Copa", "Línea Novo"],
-    meta: "Ø 34 – 119 cm · Auto Riego · 12 acabados · Garantía 5 años",
-    cta: "Cotizar en mi espacio",
-    message: "Hola VivirBonito, me interesa la línea Contemporánea para mi espacio.",
+    models: ["Bola Series", "Cylindro", "Quattro", "Copa"],
+    meta: "Ø 34 – 119 cm · Auto Riego · 15 referencias",
+    cta: "Ver colección",
+    slug: "contemporanea",
     image: contemporaneaAsset.url,
     alt: "Macetas Bola Series de gran formato en color carbón sobre terraza",
     accent: "var(--olive)",
@@ -36,10 +37,10 @@ const collections: Collection[] = [
     title: "Línea Orgánica & Nature",
     description:
       "Texturas artesanales y fibras naturales que aportan sofisticación relajada y calidez a salones o rincones de descanso.",
-    models: ["Sisal Cilíndrica", "Sisal Bowl", "Plátano Bowl", "Bambú Redondeada", "Macramé"],
-    meta: "Importadas de Vietnam · Uso en interiores · Fibras nobles",
-    cta: "Consultar disponibilidad",
-    message: "Hola VivirBonito, me gustaría ver los formatos disponibles de la línea Nature.",
+    models: ["Sisal Cilíndrica", "Sisal Bowl", "Plátano Cilíndrica", "Plátano Bowl", "Bambú Redondeada"],
+    meta: "17 referencias en promoción · Fibras nobles",
+    cta: "Ver colección",
+    slug: "nature",
     image: natureAsset.url,
     alt: "Maceta colgante con planta de hojas largas entre árboles",
     accent: "var(--olive-soft)",
@@ -49,13 +50,26 @@ const collections: Collection[] = [
     title: "Línea Petite & Detalles",
     description:
       "Puntos de acento verde. Composiciones a menor escala y parantes de diseño en negro, dorado y bronce para repisas, escritorios o mesas de centro.",
-    models: ["Mini Petite Ø 17 cm", "Bola Petite Ø 30 cm", "Luna pared / colgante", "Gota", "Parantes"],
+    models: ["Mini Petite", "Bola Petite", "Luna", "Gota", "Macramé"],
     meta: "Negro · Dorado · Bronce · Hierro y porcelana",
-    cta: "Solicitar catálogo de acentos",
-    message: "Hola VivirBonito, me interesa el catálogo de la línea Petite y parantes.",
+    cta: "Ver colección",
+    slug: "petite",
     image: petiteAsset.url,
     alt: "Macetas Petite blancas y cacao sobre parantes dorados",
     accent: "var(--olive-pale)",
+  },
+  {
+    eyebrow: "04 / Novo",
+    title: "Línea Novo",
+    description:
+      "Formas suaves y nervaduras sutiles en polietileno. Tuby, Ribby y Cuenco: piezas versátiles que conectan lo contemporáneo con lo orgánico.",
+    models: ["Tuby Short", "Tuby Tall", "Ribby", "Cuenco"],
+    meta: "Ø 40 – 55 cm · 6 referencias",
+    cta: "Ver colección",
+    slug: "novo",
+    image: contemporaneaAsset.url,
+    alt: "Maceta de polietileno con forma cilíndrica suave",
+    accent: "var(--olive)",
   },
 ];
 
@@ -72,7 +86,7 @@ export function Collections() {
           </div>
         </Reveal>
 
-        <div className="grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-10">
+        <div className="grid gap-10 md:grid-cols-2 md:gap-8 lg:grid-cols-4 lg:gap-10">
           {collections.map((c, i) => (
             <Reveal key={c.title} delay={i * 120}>
               <article className="group flex h-full flex-col">
@@ -102,20 +116,34 @@ export function Collections() {
                     <p className="mt-3 text-xs font-normal text-muted-ink">{c.meta}</p>
                   </div>
 
-                  <a
-                    href={waUrl(c.message)}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    to="/coleccion/$slug"
+                    params={{ slug: c.slug }}
                     className="mt-8 inline-flex w-fit items-center gap-2 border-b border-olive pb-1 text-sm font-medium text-olive transition-colors hover:text-olive-soft"
                   >
                     {c.cta}
                     <span aria-hidden="true">→</span>
-                  </a>
+                  </Link>
                 </div>
               </article>
             </Reveal>
           ))}
         </div>
+
+        <Reveal>
+          <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-hairline pt-8">
+            <p className="text-sm font-normal text-muted-ink">
+              ¿Buscas parantes, soportes o complementos en fierro?
+            </p>
+            <Link
+              to="/accesorios"
+              className="inline-flex items-center gap-2 border-b border-olive pb-1 text-sm font-medium text-olive transition-colors hover:text-olive-soft"
+            >
+              Ver accesorios y parantes
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
