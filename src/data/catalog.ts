@@ -10,6 +10,7 @@ export type Product = {
   colors?: string;
   notes?: string;
   type: "Maceta" | "Parante" | "Decorativo";
+  subcategory?: "Colgantes" | "Parantes";
 };
 
 export type CollectionMeta = {
@@ -72,9 +73,9 @@ export const collectionsMeta: Record<CollectionSlug, CollectionMeta> = {
     slug: "accesorios",
     name: "Accesorios",
     eyebrow: "Complementos",
-    tagline: "Parantes y soportes en fierro",
+    tagline: "Colgantes y parantes en metal",
     description:
-      "Estructuras en fierro acabado negro, dorado o bronce. Diseñadas para realzar cada maceta y elevar la composición del espacio.",
+      "Colgantes decorativos y parantes en fierro acabado negro, dorado o bronce. Pensados para realzar cada maceta y elevar la composición del espacio.",
     image: accentAsset.url,
     accent: "var(--olive)",
   },
@@ -110,16 +111,6 @@ export const products: Product[] = [
   { collection: "petite", family: "Mini Petite", name: "Mini Petite S", size: "Ø17 x h14", pricePEN: 149, material: "Impresión 3D", notes: "Incluye maceta interna", type: "Maceta" },
   { collection: "petite", family: "Mini Petite", name: "Mini Petite M", size: "Ø22 x h17", pricePEN: 169, material: "Impresión 3D", notes: "Incluye maceta interna", type: "Maceta" },
   { collection: "petite", family: "Bola Petite", name: "Bola Petite", size: "Ø30 x h24", pricePEN: 189, material: "Fibra de vidrio", type: "Maceta" },
-  { collection: "petite", family: "Colgantes", name: "Colgante Mini Petite", pricePEN: 419, material: "Metal + maceta", notes: "Bajo pedido", type: "Decorativo" },
-  { collection: "petite", family: "Parantes Petite", name: "Parante S", size: "40 cm", pricePEN: 239, material: "Fierro", type: "Parante" },
-  { collection: "petite", family: "Parantes Petite", name: "Parante M", size: "60 cm", pricePEN: 259, material: "Fierro", type: "Parante" },
-  { collection: "petite", family: "Parantes Petite", name: "Parante L", size: "80 cm", pricePEN: 279, material: "Fierro", type: "Parante" },
-  { collection: "petite", family: "Luna", name: "Pieza Luna + Bola Petite", pricePEN: 449, material: "Metal", notes: "Bajo pedido", type: "Decorativo" },
-  { collection: "petite", family: "Luna", name: "Pieza Luna Colgante + Bola Petite", size: "85 cm o 1 m", pricePEN: 479, material: "Metal", notes: "Bajo pedido", type: "Decorativo" },
-  { collection: "petite", family: "Luna", name: "Luna Colgante Cadena + Bola Petite", size: "85 cm o 1 m", pricePEN: 489, material: "Metal", notes: "Bajo pedido", type: "Decorativo" },
-  { collection: "petite", family: "Gota", name: "Gota Colgante + Bola Petite", size: "85 cm o 1 m", pricePEN: 479, material: "Metal", notes: "Bajo pedido", type: "Decorativo" },
-  { collection: "petite", family: "Gota", name: "Gota Colgante Cadena + Bola Petite", size: "85 cm o 1 m", pricePEN: 489, material: "Metal", notes: "Bajo pedido", type: "Decorativo" },
-  { collection: "petite", family: "Macramé", name: "Macramé + Bola Petite", size: "85 cm o 1 m", pricePEN: 339, material: "Algodón", notes: "Bajo pedido", type: "Decorativo" },
 
   // Nature
   { collection: "nature", family: "Sisal Cilíndrica", name: "Sisal Cilíndrica S", size: "Ø15 x h14", pricePEN: 99, material: "Fibra cemento + sisal", notes: "Promoción", type: "Maceta" },
@@ -141,17 +132,33 @@ export const products: Product[] = [
   { collection: "nature", family: "Bambú Redondeada", name: "Bambú Redondeada L", size: "Ø44 x h42", pricePEN: 399, material: "Fibra cemento + bambú", notes: "Promoción", type: "Maceta" },
 
   // Accesorios
-  { collection: "accesorios", family: "Parantes Bola", name: "Parante Bola", size: "Para Bola Ø46", pricePEN: 269, material: "Fierro", colors: "Negro · Dorado · Bronce", type: "Parante" },
-  { collection: "accesorios", family: "Parantes Cylindro", name: "Parante Cylindro Bajo", size: "50 cm", pricePEN: 269, material: "Fierro", colors: "Negro · Dorado", type: "Parante" },
-  { collection: "accesorios", family: "Parantes Cylindro", name: "Parante Cylindro Alto", size: "70 cm", pricePEN: 279, material: "Fierro", colors: "Negro · Dorado", type: "Parante" },
-  { collection: "accesorios", family: "Parantes U", name: "Parante U", size: "20 cm", pricePEN: 239, material: "Fierro", colors: "Negro · Dorado · Bronce", type: "Parante" },
-  { collection: "accesorios", family: "Parantes Copa", name: "Parante Copa", size: "20 cm", pricePEN: 289, material: "Fierro", colors: "Negro · Dorado · Bronce", type: "Parante" },
-  { collection: "accesorios", family: "Parantes Quattro", name: "Parante Quattro Bajo", size: "50 cm", pricePEN: 269, material: "Fierro", colors: "Negro · Dorado", type: "Parante" },
-  { collection: "accesorios", family: "Parantes Quattro", name: "Parante Quattro Alto", size: "70 cm", pricePEN: 279, material: "Fierro", colors: "Negro · Dorado", type: "Parante" },
+  // Colgantes
+  { collection: "accesorios", subcategory: "Colgantes", family: "Luna", name: "Pieza Luna + Bola Petite", pricePEN: 449, material: "Metal", notes: "Bajo pedido", type: "Decorativo" },
+  { collection: "accesorios", subcategory: "Colgantes", family: "Luna", name: "Pieza Luna Colgante + Bola Petite", size: "85 cm o 1 m", pricePEN: 479, material: "Metal", notes: "Bajo pedido", type: "Decorativo" },
+  { collection: "accesorios", subcategory: "Colgantes", family: "Luna", name: "Luna Colgante Cadena + Bola Petite", size: "85 cm o 1 m", pricePEN: 489, material: "Metal", notes: "Bajo pedido", type: "Decorativo" },
+  { collection: "accesorios", subcategory: "Colgantes", family: "Gota", name: "Gota Colgante + Bola Petite", size: "85 cm o 1 m", pricePEN: 479, material: "Metal", notes: "Bajo pedido", type: "Decorativo" },
+  { collection: "accesorios", subcategory: "Colgantes", family: "Gota", name: "Gota Colgante Cadena + Bola Petite", size: "85 cm o 1 m", pricePEN: 489, material: "Metal", notes: "Bajo pedido", type: "Decorativo" },
+  { collection: "accesorios", subcategory: "Colgantes", family: "Macramé", name: "Macramé + Bola Petite", size: "85 cm o 1 m", pricePEN: 339, material: "Algodón", notes: "Bajo pedido", type: "Decorativo" },
+  { collection: "accesorios", subcategory: "Colgantes", family: "Colgante Mini Petite", name: "Colgante Mini Petite", pricePEN: 419, material: "Metal + maceta", notes: "Bajo pedido", type: "Decorativo" },
+  // Parantes
+  { collection: "accesorios", subcategory: "Parantes", family: "Parantes Bola", name: "Parante Bola", size: "Para Bola Ø46", pricePEN: 269, material: "Fierro", colors: "Negro · Dorado · Bronce", type: "Parante" },
+  { collection: "accesorios", subcategory: "Parantes", family: "Parantes Cylindro", name: "Parante Cylindro Bajo", size: "50 cm", pricePEN: 269, material: "Fierro", colors: "Negro · Dorado", type: "Parante" },
+  { collection: "accesorios", subcategory: "Parantes", family: "Parantes Cylindro", name: "Parante Cylindro Alto", size: "70 cm", pricePEN: 279, material: "Fierro", colors: "Negro · Dorado", type: "Parante" },
+  { collection: "accesorios", subcategory: "Parantes", family: "Parantes U", name: "Parante U", size: "20 cm", pricePEN: 239, material: "Fierro", colors: "Negro · Dorado · Bronce", type: "Parante" },
+  { collection: "accesorios", subcategory: "Parantes", family: "Parantes Copa", name: "Parante Copa", size: "20 cm", pricePEN: 289, material: "Fierro", colors: "Negro · Dorado · Bronce", type: "Parante" },
+  { collection: "accesorios", subcategory: "Parantes", family: "Parantes Quattro", name: "Parante Quattro Bajo", size: "50 cm", pricePEN: 269, material: "Fierro", colors: "Negro · Dorado", type: "Parante" },
+  { collection: "accesorios", subcategory: "Parantes", family: "Parantes Quattro", name: "Parante Quattro Alto", size: "70 cm", pricePEN: 279, material: "Fierro", colors: "Negro · Dorado", type: "Parante" },
+  { collection: "accesorios", subcategory: "Parantes", family: "Parantes Petite", name: "Parante Petite S", size: "40 cm", pricePEN: 239, material: "Fierro", type: "Parante" },
+  { collection: "accesorios", subcategory: "Parantes", family: "Parantes Petite", name: "Parante Petite M", size: "60 cm", pricePEN: 259, material: "Fierro", type: "Parante" },
+  { collection: "accesorios", subcategory: "Parantes", family: "Parantes Petite", name: "Parante Petite L", size: "80 cm", pricePEN: 279, material: "Fierro", type: "Parante" },
 ];
 
 export function getProductsByCollection(slug: CollectionSlug): Product[] {
   return products.filter((p) => p.collection === slug);
+}
+
+export function getAccessoriesBySubcategory(sub: "Colgantes" | "Parantes"): Product[] {
+  return products.filter((p) => p.collection === "accesorios" && p.subcategory === sub);
 }
 
 export function groupByFamily(items: Product[]): { family: string; items: Product[] }[] {
