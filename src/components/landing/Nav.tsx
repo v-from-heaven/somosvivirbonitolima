@@ -11,15 +11,21 @@ const collectionLinks = [
   { to: "/coleccion/$slug", params: { slug: "novo" }, label: "Novo" },
 ] as const;
 
+const accesoriosLinks = [
+  { to: "/accesorios/$tipo", params: { tipo: "colgantes" }, label: "Colgantes" },
+  { to: "/accesorios/$tipo", params: { tipo: "parantes" }, label: "Parantes" },
+] as const;
+
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [colOpen, setColOpen] = useState(false);
+  const [accOpen, setAccOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-hairline bg-background/85 backdrop-blur-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
         <Link to="/" className="flex items-center" aria-label="VivirBonito">
-          <img src={logoAsset.url} alt="VivirBonito Deco & Design" className="h-9 w-auto sm:h-10" />
+          <img src={logoAsset.url} alt="VivirBonito Deco & Design" className="h-11 w-auto sm:h-12" />
         </Link>
 
         <ul className="hidden items-center gap-9 text-[13px] tracking-wide text-ink/80 md:flex">
@@ -53,10 +59,35 @@ export function Nav() {
               </div>
             )}
           </li>
-          <li>
-            <Link to="/accesorios" className="transition-colors hover:text-olive">
+          <li
+            className="relative"
+            onMouseEnter={() => setAccOpen(true)}
+            onMouseLeave={() => setAccOpen(false)}
+          >
+            <button
+              type="button"
+              className="inline-flex items-center gap-1 transition-colors hover:text-olive"
+              onClick={() => setAccOpen((v) => !v)}
+              aria-expanded={accOpen}
+            >
               Accesorios
-            </Link>
+              <span aria-hidden="true" className="text-xs">▾</span>
+            </button>
+            {accOpen && (
+              <div className="absolute left-0 top-full min-w-[180px] border border-hairline bg-background py-2 shadow-sm">
+                {accesoriosLinks.map((a) => (
+                  <Link
+                    key={a.params.tipo}
+                    to={a.to}
+                    params={a.params}
+                    className="block px-4 py-2 text-sm text-ink/80 transition-colors hover:bg-bone hover:text-olive"
+                    onClick={() => setAccOpen(false)}
+                  >
+                    {a.label}
+                  </Link>
+                ))}
+              </div>
+            )}
           </li>
           <li>
             <Link to="/" hash="proceso" className="transition-colors hover:text-olive">
@@ -115,9 +146,22 @@ export function Nav() {
               </div>
             </li>
             <li className="border-b border-hairline py-3">
-              <Link to="/accesorios" className="text-ink hover:text-olive" onClick={() => setOpen(false)}>
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-ink">
                 Accesorios
-              </Link>
+              </p>
+              <div className="flex flex-col gap-2">
+                {accesoriosLinks.map((a) => (
+                  <Link
+                    key={a.params.tipo}
+                    to={a.to}
+                    params={a.params}
+                    className="text-ink transition-colors hover:text-olive"
+                    onClick={() => setOpen(false)}
+                  >
+                    {a.label}
+                  </Link>
+                ))}
+              </div>
             </li>
             <li className="border-b border-hairline py-3">
               <Link to="/" hash="proceso" className="text-ink hover:text-olive" onClick={() => setOpen(false)}>

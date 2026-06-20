@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AccesoriosRouteImport } from './routes/accesorios'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccesoriosIndexRouteImport } from './routes/accesorios.index'
 import { Route as ColeccionSlugRouteImport } from './routes/coleccion.$slug'
+import { Route as AccesoriosTipoRouteImport } from './routes/accesorios.$tipo'
 
 const AccesoriosRoute = AccesoriosRouteImport.update({
   id: '/accesorios',
@@ -23,39 +25,65 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccesoriosIndexRoute = AccesoriosIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AccesoriosRoute,
+} as any)
 const ColeccionSlugRoute = ColeccionSlugRouteImport.update({
   id: '/coleccion/$slug',
   path: '/coleccion/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccesoriosTipoRoute = AccesoriosTipoRouteImport.update({
+  id: '/$tipo',
+  path: '/$tipo',
+  getParentRoute: () => AccesoriosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/accesorios': typeof AccesoriosRoute
+  '/accesorios': typeof AccesoriosRouteWithChildren
+  '/accesorios/$tipo': typeof AccesoriosTipoRoute
   '/coleccion/$slug': typeof ColeccionSlugRoute
+  '/accesorios/': typeof AccesoriosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/accesorios': typeof AccesoriosRoute
+  '/accesorios/$tipo': typeof AccesoriosTipoRoute
   '/coleccion/$slug': typeof ColeccionSlugRoute
+  '/accesorios': typeof AccesoriosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/accesorios': typeof AccesoriosRoute
+  '/accesorios': typeof AccesoriosRouteWithChildren
+  '/accesorios/$tipo': typeof AccesoriosTipoRoute
   '/coleccion/$slug': typeof ColeccionSlugRoute
+  '/accesorios/': typeof AccesoriosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/accesorios' | '/coleccion/$slug'
+  fullPaths:
+    | '/'
+    | '/accesorios'
+    | '/accesorios/$tipo'
+    | '/coleccion/$slug'
+    | '/accesorios/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/accesorios' | '/coleccion/$slug'
-  id: '__root__' | '/' | '/accesorios' | '/coleccion/$slug'
+  to: '/' | '/accesorios/$tipo' | '/coleccion/$slug' | '/accesorios'
+  id:
+    | '__root__'
+    | '/'
+    | '/accesorios'
+    | '/accesorios/$tipo'
+    | '/coleccion/$slug'
+    | '/accesorios/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AccesoriosRoute: typeof AccesoriosRoute
+  AccesoriosRoute: typeof AccesoriosRouteWithChildren
   ColeccionSlugRoute: typeof ColeccionSlugRoute
 }
 
@@ -75,6 +103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accesorios/': {
+      id: '/accesorios/'
+      path: '/'
+      fullPath: '/accesorios/'
+      preLoaderRoute: typeof AccesoriosIndexRouteImport
+      parentRoute: typeof AccesoriosRoute
+    }
     '/coleccion/$slug': {
       id: '/coleccion/$slug'
       path: '/coleccion/$slug'
@@ -82,14 +117,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ColeccionSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accesorios/$tipo': {
+      id: '/accesorios/$tipo'
+      path: '/$tipo'
+      fullPath: '/accesorios/$tipo'
+      preLoaderRoute: typeof AccesoriosTipoRouteImport
+      parentRoute: typeof AccesoriosRoute
+    }
   }
 }
 
+interface AccesoriosRouteChildren {
+  AccesoriosTipoRoute: typeof AccesoriosTipoRoute
+  AccesoriosIndexRoute: typeof AccesoriosIndexRoute
+}
+
+const AccesoriosRouteChildren: AccesoriosRouteChildren = {
+  AccesoriosTipoRoute: AccesoriosTipoRoute,
+  AccesoriosIndexRoute: AccesoriosIndexRoute,
+}
+
+const AccesoriosRouteWithChildren = AccesoriosRoute._addFileChildren(
+  AccesoriosRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AccesoriosRoute: AccesoriosRoute,
+  AccesoriosRoute: AccesoriosRouteWithChildren,
   ColeccionSlugRoute: ColeccionSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

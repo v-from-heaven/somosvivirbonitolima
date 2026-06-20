@@ -8,11 +8,34 @@ import {
   getProductsByCollection,
   groupByFamily,
   type CollectionSlug,
+  type Product,
 } from "@/data/catalog";
 
-export function CollectionPage({ slug }: { slug: CollectionSlug }) {
+type Props = {
+  slug: CollectionSlug;
+  filterSubcategory?: "Colgantes" | "Parantes";
+  titleOverride?: string;
+  eyebrowOverride?: string;
+  taglineOverride?: string;
+  descriptionOverride?: string;
+};
+
+export function CollectionPage({
+  slug,
+  filterSubcategory,
+  titleOverride,
+  eyebrowOverride,
+  taglineOverride,
+  descriptionOverride,
+}: Props) {
   const meta = collectionsMeta[slug];
-  const families = groupByFamily(getProductsByCollection(slug));
+  let items: Product[] = getProductsByCollection(slug);
+  if (filterSubcategory) items = items.filter((p) => p.subcategory === filterSubcategory);
+  const families = groupByFamily(items);
+  const title = titleOverride ?? meta.name;
+  const eyebrow = eyebrowOverride ?? meta.eyebrow;
+  const tagline = taglineOverride ?? meta.tagline;
+  const description = descriptionOverride ?? meta.description;
 
   return (
     <main className="min-h-screen bg-background text-ink">
@@ -22,14 +45,14 @@ export function CollectionPage({ slug }: { slug: CollectionSlug }) {
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:py-24">
           <div className="flex flex-col justify-center">
             <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-olive">
-              {meta.eyebrow}
+              {eyebrow}
             </p>
             <h1 className="mt-5 text-4xl font-medium tracking-tight text-ink sm:text-5xl lg:text-6xl">
-              {meta.name}
+              {title}
             </h1>
-            <p className="mt-4 text-base font-normal text-muted-ink sm:text-lg">{meta.tagline}</p>
+            <p className="mt-4 text-base font-normal text-muted-ink sm:text-lg">{tagline}</p>
             <p className="mt-6 max-w-xl text-sm font-normal leading-relaxed text-muted-ink sm:text-base">
-              {meta.description}
+              {description}
             </p>
             <div className="mt-8 flex flex-wrap gap-3 text-xs">
               <Link
