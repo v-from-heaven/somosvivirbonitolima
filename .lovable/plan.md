@@ -1,99 +1,59 @@
-## Objetivo
+## Plan consolidado
 
-Mostrar todo el catálogo de VivirBonito en la web, con una página por colección y una sección dedicada a Accesorios accesible desde el menú.
+### A. Reestructurar Accesorios con submenú
 
-## Colecciones detectadas en el catálogo
+**`src/data/catalog.ts`** — Reclasificar:
+- Colgante Mini Petite, Luna (3), Gota (2), Macramé → `accesorios` / **Colgantes**
+- Parantes Petite S/M/L → `accesorios` / **Parantes**
+- Petite queda solo con macetas (Mini Petite, Bola Petite)
+- Añadir campos opcionales: `subcategory?: "Colgantes" | "Parantes"` y `image?: string` por familia
 
-- **Contemporánea** — Bola Auto Riego, Cylindro, Copa, Quattro
-- **Nature** — Sisal Cilíndrica, Sisal Bowl, Plátano Cilíndrica (+ variantes)
-- **Petite** — Mini Petite, Bola Petite, Colgantes, Parantes Petite, Luna, Gota, Macramé
-- **Novo** *(nueva, no estaba en la web)* — Tuby, Ribby, Cuenco
-- **Accesorios** — Parantes (Bola, Cylindro, U, Copa, Quattro)
+**`src/components/landing/Nav.tsx`** — Accesorios pasa a dropdown:
+- Colgantes → `/accesorios/colgantes`
+- Parantes → `/accesorios/parantes`
 
-> Confirmar: ¿incluimos **Novo** como cuarta colección destacada en la home, o solo accesible desde el menú?
+**Rutas nuevas:**
+- `src/routes/accesorios.tsx` → layout con `<Outlet />`
+- `src/routes/accesorios.index.tsx` → vista general con ambos grupos
+- `src/routes/accesorios.$tipo.tsx` → ruta dinámica filtrada con `head()` específico
 
-## Estructura de rutas (nuevas)
+**`CollectionPage` / `FamilyBlock`** — aceptar `filterSubcategory?` y renderizar imagen hero de la familia.
 
-```
-/coleccion/contemporanea
-/coleccion/nature
-/coleccion/petite
-/coleccion/novo
-/accesorios
-```
+### B. Imágenes por familia (~22)
 
-Ruta dinámica única `src/routes/coleccion.$slug.tsx` para las 4 colecciones + ruta dedicada `src/routes/accesorios.tsx`. Cada una con su propio `head()` (title, description, og).
+Generar hero editorial (fondo bone #F4EFE6, luz natural, 4:3) por familia:
+- Contemporánea: Bola, Cylindro, Copa, Quattro
+- Nature: Sisal Cilíndrica, Sisal Bowl, Plátano Cilíndrica, Plátano Bowl, Bambú
+- Novo: Tuby, Ribby, Cuenco
+- Petite: Mini Petite, Bola Petite
+- Colgantes: Luna, Gota, Macramé, Colgante Mini Petite
+- Parantes: Bola, Cylindro, U, Copa, Quattro, Parantes Petite
 
-## Navegación
+Cada familia añade `image: <asset.url>` en su primer producto; `FamilyBlock` la renderiza como banda visual superior.
 
-Menú principal (Nav.tsx) pasa de 1 botón (WhatsApp) a links de navegación reales:
+### C. Logo correcto
 
-- Colecciones (dropdown o links: Contemporánea · Nature · Petite · Novo)
-- Accesorios
-- Proceso
-- Contacto (WhatsApp)
+Subir la nueva imagen (VIVIRBONITO + línea verde + DECO & DESIGN) a CDN y reemplazar `src/assets/logo.png.asset.json`. El `Nav.tsx` la usa automáticamente.
 
-En móvil: menú hamburguesa con los mismos enlaces.
+### D. Antes/Después en Proyectos (NUEVO)
 
-## Página de colección (`/coleccion/$slug`)
+**`src/components/landing/BeforeAfter.tsx`** — Componente reutilizable con slider deslizable:
+- Dos imágenes apiladas (antes / después), recortadas por `clip-path` controlado por la posición del cursor o un handle arrastrable
+- Handle vertical con línea fina verde (#8FBF26) y círculo con flechas izq/der
+- Labels discretos "Antes" / "Después" en esquinas
+- Funciona en mouse, touch y teclado (←/→)
+- Aspect ratio 4:3, fondo bone
 
-Layout tipo catálogo de estudio de arquitectura:
+**`src/components/landing/Projects.tsx`** — Insertar un bloque featured arriba o debajo del grid actual:
+- Eyebrow "Transformación" + título corto ("Antes y después")
+- `<BeforeAfter beforeUrl={...} afterUrl={...} alt="..." />` en ancho amplio
+- Mantener el grid de 3 proyectos existente debajo
 
-1. **Header**: eyebrow "Colección", H1 con el nombre, breve descripción, imagen hero de la colección.
-2. **Grid de familias**: cada familia (Bola Series, Cylindro, Copa, Quattro…) como bloque con:
-   - Nombre de la familia (H2)
-   - Material / acabado
-   - Tabla de variantes: Medida · Precio · Notas (auto riego / a pedido / promoción)
-   - Botón "Cotizar por WhatsApp" pre-rellenado con producto + medida
-3. Divisores `border-hairline` muy sutiles. Acento verde solo en CTAs y precio destacado.
+**Imágenes:** generar 1 par antes/después (mismo encuadre, antes = espacio vacío/descuidado, después = decorado con macetas VivirBonito) y subirlas como assets.
 
-## Página Accesorios (`/accesorios`)
+### Preguntas abiertas
 
-Mismo patrón pero centrado en Parantes (Bola, Cylindro Bajo/Alto, U, Copa, Quattro Bajo/Alto), agrupados por tipo. Cada item: medida, colores disponibles (Negro/Dorado/Bronce), precio, CTA WhatsApp.
-
-## Sección Collections (home)
-
-Las 3 (o 4) tarjetas actuales se mantienen, pero el CTA "Explorar colección" lleva a `/coleccion/$slug` en lugar de scroll. Lista corta de modelos sigue visible como teaser.
-
-## Datos
-
-Un único `src/data/catalog.ts` con el catálogo tipado, derivado del Excel subido. Las páginas leen de ahí; nada hardcodeado en componentes. Sin backend — datos estáticos en el bundle.
-
-```ts
-export type Product = {
-  collection: 'contemporanea' | 'nature' | 'petite' | 'novo' | 'accesorios';
-  family: string;
-  name: string;
-  size?: string;
-  pricePEN: number;
-  material: string;
-  colors?: string[];
-  notes?: string;
-  type: 'Maceta' | 'Parante' | 'Decorativo';
-};
-```
-
-## WhatsApp
-
-Helper `buildWaMessage(product)` que genera: *"Hola, me interesa la {familia} {nombre} ({medida}) — S/ {precio}. ¿Disponibilidad?"* y abre el link de WhatsApp existente.
-
-## Tipografía / estilo
-
-Se mantiene la dirección actual (Inter, jerarquía normal, verde #8FBF26 como acento principal, #B2D95F y #C9D98F secundarios, divisores `border-hairline`). Sin cambios al sistema de diseño.
-
-## Archivos a crear / editar
-
-- **Nuevo** `src/data/catalog.ts` — catálogo tipado completo
-- **Nuevo** `src/routes/coleccion.$slug.tsx` — página dinámica por colección
-- **Nuevo** `src/routes/accesorios.tsx` — página de accesorios
-- **Nuevo** `src/components/catalog/ProductTable.tsx` — tabla de variantes reutilizable
-- **Nuevo** `src/components/catalog/FamilyBlock.tsx` — bloque por familia
-- **Editar** `src/components/landing/Nav.tsx` — menú real con links + hamburguesa móvil
-- **Editar** `src/components/landing/Collections.tsx` — CTAs apuntan a nuevas rutas, agregar Novo si se confirma
-- **Editar** `src/lib/whatsapp.ts` — helper `buildWaMessage(product)`
-
-## Preguntas abiertas
-
-1. ¿Incluir **Novo** como 4ª colección en la home, o solo en el menú?
-2. ¿Mostrar precios en S/ visibles, o solo "Cotizar"? (recomiendo mostrarlos — genera confianza y reduce fricción)
-3. ¿Imágenes por producto disponibles? Si no, usaré la imagen hero de cada colección como fondo de los bloques de familia.
+1. **Parantes Petite (40/60/80 cm)**: ¿moverlos a Accesorios > Parantes (recomendado) o dejarlos en Petite?
+2. **22 imágenes IA** como placeholders editoriales hasta tener fotos reales del catálogo. ¿Procedo con IA?
+3. `/accesorios` sin filtro: ¿muestra ambos grupos en una página o redirige a `/accesorios/colgantes`?
+4. **Antes/Después**: ¿generamos el par con IA (interior tipo terraza/lobby) o tienes tú las fotos reales del proyecto?

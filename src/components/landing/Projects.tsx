@@ -1,8 +1,11 @@
 import project1 from "@/assets/project1.jpg.asset.json";
 import project2 from "@/assets/project2.jpg.asset.json";
 import accent from "@/assets/accent.jpg.asset.json";
+import beforeAsset from "@/assets/before.jpg.asset.json";
+import afterAsset from "@/assets/after.jpg.asset.json";
 import { INSTAGRAM_URL } from "@/lib/whatsapp";
 import { Reveal } from "./Reveal";
+import { BeforeAfter } from "./BeforeAfter";
 
 const projects = [
   { url: project1.url, alt: "Patio con macetas grandes y bougainvillea", tag: "Residencial · Jardín" },
@@ -34,6 +37,28 @@ export function Projects() {
               Ver más proyectos reales <span aria-hidden="true">→</span>
             </a>
           </div>
+        </Reveal>
+
+        <Reveal>
+          <figure className="mb-16 border border-hairline bg-bone/40 p-3 sm:p-4 lg:mb-20">
+            <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2 px-1">
+              <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-olive">
+                Transformación
+              </p>
+              <p className="text-xs font-normal text-muted-ink">
+                Arrastra el control para comparar
+              </p>
+            </div>
+            <BeforeAfter
+              beforeUrl={beforeAsset.url}
+              afterUrl={afterAsset.url}
+              beforeAlt="Rincón vacío antes de la intervención"
+              afterAlt="Mismo rincón decorado con macetas y plantas de VivirBonito"
+            />
+            <figcaption className="mt-4 px-1 text-sm font-normal text-muted-ink">
+              Un rincón olvidado, transformado por nuestros diseñadores con piezas de las colecciones Contemporánea y Petite.
+            </figcaption>
+          </figure>
         </Reveal>
 
         <div className="grid gap-6 md:grid-cols-3">
