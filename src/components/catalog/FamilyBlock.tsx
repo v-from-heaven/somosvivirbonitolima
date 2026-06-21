@@ -1,11 +1,24 @@
-import type { Product } from "@/data/catalog";
+import { familyImages, type Product } from "@/data/catalog";
 import { buildProductMessage, waUrl } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "@/components/landing/WhatsAppIcon";
 
 export function FamilyBlock({ family, items }: { family: string; items: Product[] }) {
   const material = items[0]?.material;
+  const image = familyImages[family];
   return (
     <article className="border-t border-hairline py-10 first:border-t-0 first:pt-0">
+      {image && (
+        <div className="mb-8 aspect-[4/3] w-full overflow-hidden bg-bone">
+          <img
+            src={image}
+            alt={family}
+            loading="lazy"
+            width={1024}
+            height={768}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      )}
       <header className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="text-2xl font-medium tracking-tight text-ink sm:text-3xl">{family}</h2>
         {material && (

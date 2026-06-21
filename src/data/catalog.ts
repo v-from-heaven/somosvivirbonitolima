@@ -28,6 +28,56 @@ import natureAsset from "@/assets/nature.jpg.asset.json";
 import petiteAsset from "@/assets/petite.jpg.asset.json";
 import accentAsset from "@/assets/accent.jpg.asset.json";
 
+import famBola from "@/assets/family/bola.jpg.asset.json";
+import famCylindro from "@/assets/family/cylindro.jpg.asset.json";
+import famCopa from "@/assets/family/copa.jpg.asset.json";
+import famQuattro from "@/assets/family/quattro.jpg.asset.json";
+import famTuby from "@/assets/family/tuby.jpg.asset.json";
+import famRibby from "@/assets/family/ribby.jpg.asset.json";
+import famCuenco from "@/assets/family/cuenco.jpg.asset.json";
+import famMiniPetite from "@/assets/family/mini-petite.jpg.asset.json";
+import famBolaPetite from "@/assets/family/bola-petite.jpg.asset.json";
+import famSisal from "@/assets/family/sisal.jpg.asset.json";
+import famPlatano from "@/assets/family/platano.jpg.asset.json";
+import famBambu from "@/assets/family/bambu.jpg.asset.json";
+import famLuna from "@/assets/family/luna.jpg.asset.json";
+import famGota from "@/assets/family/gota.jpg.asset.json";
+import famMacrame from "@/assets/family/macrame.jpg.asset.json";
+import famColganteMini from "@/assets/family/colgante-mini.jpg.asset.json";
+import famParanteBola from "@/assets/family/parante-bola.jpg.asset.json";
+import famParanteCylindro from "@/assets/family/parante-cylindro.jpg.asset.json";
+import famParanteU from "@/assets/family/parante-u.jpg.asset.json";
+import famParanteCopa from "@/assets/family/parante-copa.jpg.asset.json";
+import famParanteQuattro from "@/assets/family/parante-quattro.jpg.asset.json";
+import famParantePetite from "@/assets/family/parante-petite.jpg.asset.json";
+
+export const familyImages: Record<string, string> = {
+  "Bola Series": famBola.url,
+  "Cylindro": famCylindro.url,
+  "Copa": famCopa.url,
+  "Quattro": famQuattro.url,
+  "Tuby": famTuby.url,
+  "Ribby": famRibby.url,
+  "Cuenco": famCuenco.url,
+  "Mini Petite": famMiniPetite.url,
+  "Bola Petite": famBolaPetite.url,
+  "Sisal Cilíndrica": famSisal.url,
+  "Sisal Bowl": famSisal.url,
+  "Plátano Cilíndrica": famPlatano.url,
+  "Plátano Bowl": famPlatano.url,
+  "Bambú Redondeada": famBambu.url,
+  "Luna": famLuna.url,
+  "Gota": famGota.url,
+  "Macramé": famMacrame.url,
+  "Colgante Mini Petite": famColganteMini.url,
+  "Parantes Bola": famParanteBola.url,
+  "Parantes Cylindro": famParanteCylindro.url,
+  "Parantes U": famParanteU.url,
+  "Parantes Copa": famParanteCopa.url,
+  "Parantes Quattro": famParanteQuattro.url,
+  "Parantes Petite": famParantePetite.url,
+};
+
 export const collectionsMeta: Record<CollectionSlug, CollectionMeta> = {
   contemporanea: {
     slug: "contemporanea",
