@@ -11,7 +11,7 @@ export function FamilyBlock({ family, items }: { family: string; items: Product[
         <div className="mb-8 aspect-[4/3] w-full overflow-hidden bg-bone">
           <img
             src={image}
-            alt={family}
+            alt={`Macetas ${family} – VivirBonito Lima${material ? `, ${material}` : ""}`}
             loading="lazy"
             width={1024}
             height={768}
