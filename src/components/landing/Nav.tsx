@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import logoAsset from "@/assets/logo.png.asset.json";
-import { waUrl } from "@/lib/whatsapp";
-import { WhatsAppIcon } from "./WhatsAppIcon";
 
 const collectionLinks = [
   { to: "/coleccion/$slug", params: { slug: "contemporanea" }, label: "Contemporánea" },
@@ -102,15 +100,6 @@ export function Nav() {
         </ul>
 
         <div className="flex items-center gap-3">
-          <a
-            href={waUrl("Hola VivirBonito, me gustaría agendar una asesoría para diseñar mi espacio.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-olive px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-olive-soft hover:text-ink sm:px-5 sm:py-2.5"
-          >
-            <WhatsAppIcon className="h-4 w-4" />
-            <span className="hidden sm:inline">Asesoría</span>
-          </a>
           <button
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center border border-hairline text-ink md:hidden"

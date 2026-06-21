@@ -1,59 +1,36 @@
-## Plan consolidado
+## Cambios
 
-### A. Reestructurar Accesorios con submenú
+### 1. Quitar WhatsApp del header
+En `src/components/landing/Nav.tsx`: eliminar el botón "Asesoría" (link de WhatsApp) y su import de `waUrl` / `WhatsAppIcon`. El `FloatingWA` fijo abajo-derecha sigue intacto. El botón hamburguesa móvil queda solo a la derecha.
 
-**`src/data/catalog.ts`** — Reclasificar:
-- Colgante Mini Petite, Luna (3), Gota (2), Macramé → `accesorios` / **Colgantes**
-- Parantes Petite S/M/L → `accesorios` / **Parantes**
-- Petite queda solo con macetas (Mini Petite, Bola Petite)
-- Añadir campos opcionales: `subcategory?: "Colgantes" | "Parantes"` y `image?: string` por familia
+### 2. Más SEO por colección y accesorio
 
-**`src/components/landing/Nav.tsx`** — Accesorios pasa a dropdown:
-- Colgantes → `/accesorios/colgantes`
-- Parantes → `/accesorios/parantes`
+**a) Descripciones más ricas y orientadas a búsqueda** en `src/data/catalog.ts` (`collectionsMeta`) y en `subMeta` de `src/routes/accesorios.$tipo.tsx`. Cada una con keywords naturales: "macetas [familia] Lima", "decoración interiores", materiales (fibra de vidrio, fierro), usos (interiores/exteriores, residencial/oficina).
 
-**Rutas nuevas:**
-- `src/routes/accesorios.tsx` → layout con `<Outlet />`
-- `src/routes/accesorios.index.tsx` → vista general con ambos grupos
-- `src/routes/accesorios.$tipo.tsx` → ruta dinámica filtrada con `head()` específico
+**b) `head()` enriquecido** en `src/routes/coleccion.$slug.tsx` y `src/routes/accesorios.$tipo.tsx`:
+- `title` con keyword + marca + ubicación (ej: "Macetas Contemporánea · Diseño minimalista en Lima · VivirBonito")
+- `description` ≤160 chars, específica por colección/tipo
+- `keywords` meta (lista por colección)
+- `og:type: "product.group"`, `og:url` absoluto a `https://somosvivirbonitolima.lovable.app/...`
+- `og:locale: "es_PE"`
+- `canonical` absoluto
 
-**`CollectionPage` / `FamilyBlock`** — aceptar `filterSubcategory?` y renderizar imagen hero de la familia.
+**c) JSON-LD `CollectionPage` + `BreadcrumbList` + `ItemList`** en cada ruta de colección y accesorio, listando los productos de esa colección (nombre, familia, imagen). Mejora rich results.
 
-### B. Imágenes por familia (~22)
+**d) `og:image` por colección/accesorio**: ya existe `meta.image`; convertirlo a URL absoluta usando el dominio del proyecto.
 
-Generar hero editorial (fondo bone #F4EFE6, luz natural, 4:3) por familia:
-- Contemporánea: Bola, Cylindro, Copa, Quattro
-- Nature: Sisal Cilíndrica, Sisal Bowl, Plátano Cilíndrica, Plátano Bowl, Bambú
-- Novo: Tuby, Ribby, Cuenco
-- Petite: Mini Petite, Bola Petite
-- Colgantes: Luna, Gota, Macramé, Colgante Mini Petite
-- Parantes: Bola, Cylindro, U, Copa, Quattro, Parantes Petite
+**e) H1 único + jerarquía**: revisar `CollectionPage.tsx` mantiene un solo `<h1>` (ya correcto) y que `FamilyBlock` use `<h2>` para familias y `<h3>` para productos (verificar en build).
 
-Cada familia añade `image: <asset.url>` en su primer producto; `FamilyBlock` la renderiza como banda visual superior.
+**f) Alt text descriptivo** en `FamilyBlock` (hero familia) y en `CollectionPage` hero: usar "Maceta [familia] [colección] – [tagline corto]" en lugar de genérico.
 
-### C. Logo correcto
+### 3. Sin cambios funcionales adicionales
+No tocar productos, navegación de accesorios ni el slider antes/después.
 
-Subir la nueva imagen (VIVIRBONITO + línea verde + DECO & DESIGN) a CDN y reemplazar `src/assets/logo.png.asset.json`. El `Nav.tsx` la usa automáticamente.
-
-### D. Antes/Después en Proyectos (NUEVO)
-
-**`src/components/landing/BeforeAfter.tsx`** — Componente reutilizable con slider deslizable:
-- Dos imágenes apiladas (antes / después), recortadas por `clip-path` controlado por la posición del cursor o un handle arrastrable
-- Handle vertical con línea fina verde (#8FBF26) y círculo con flechas izq/der
-- Labels discretos "Antes" / "Después" en esquinas
-- Funciona en mouse, touch y teclado (←/→)
-- Aspect ratio 4:3, fondo bone
-
-**`src/components/landing/Projects.tsx`** — Insertar un bloque featured arriba o debajo del grid actual:
-- Eyebrow "Transformación" + título corto ("Antes y después")
-- `<BeforeAfter beforeUrl={...} afterUrl={...} alt="..." />` en ancho amplio
-- Mantener el grid de 3 proyectos existente debajo
-
-**Imágenes:** generar 1 par antes/después (mismo encuadre, antes = espacio vacío/descuidado, después = decorado con macetas VivirBonito) y subirlas como assets.
-
-### Preguntas abiertas
-
-1. **Parantes Petite (40/60/80 cm)**: ¿moverlos a Accesorios > Parantes (recomendado) o dejarlos en Petite?
-2. **22 imágenes IA** como placeholders editoriales hasta tener fotos reales del catálogo. ¿Procedo con IA?
-3. `/accesorios` sin filtro: ¿muestra ambos grupos en una página o redirige a `/accesorios/colgantes`?
-4. **Antes/Después**: ¿generamos el par con IA (interior tipo terraza/lobby) o tienes tú las fotos reales del proyecto?
+## Archivos a modificar
+- `src/components/landing/Nav.tsx` — quitar botón WhatsApp + imports
+- `src/data/catalog.ts` — enriquecer `collectionsMeta.description`, añadir `keywords` por colección
+- `src/routes/coleccion.$slug.tsx` — head más rico + JSON-LD CollectionPage/Breadcrumb/ItemList
+- `src/routes/accesorios.$tipo.tsx` — head más rico + JSON-LD + `subMeta` con keywords
+- `src/routes/accesorios.index.tsx` — head con keywords + JSON-LD
+- `src/components/catalog/FamilyBlock.tsx` — alt descriptivo en hero familia
+- `src/components/catalog/CollectionPage.tsx` — alt descriptivo en hero

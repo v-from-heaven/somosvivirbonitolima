@@ -64,7 +64,11 @@ export function CollectionPage({
             </div>
           </div>
           <div className="relative aspect-[4/5] overflow-hidden bg-bone lg:aspect-auto">
-            <img src={meta.image} alt={`Colección ${meta.name}`} className="h-full w-full object-cover" />
+            <img
+              src={meta.image}
+              alt={`${meta.name} VivirBonito – ${meta.tagline}`}
+              className="h-full w-full object-cover"
+            />
           </div>
         </div>
       </section>
