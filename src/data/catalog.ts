@@ -21,6 +21,8 @@ export type CollectionMeta = {
   description: string;
   image: string;
   accent: string;
+  keywords: string[];
+  seoTitle: string;
 };
 
 import contemporaneaAsset from "@/assets/contemporanea.jpg.asset.json";
@@ -85,9 +87,18 @@ export const collectionsMeta: Record<CollectionSlug, CollectionMeta> = {
     eyebrow: "Colección 01",
     tagline: "Arquitectónica y de gran escala",
     description:
-      "Piezas geométricas de Polietileno HD, alta durabilidad y formatos de gran escala. Incluye sistemas de Auto Riego para interiores modernos y exteriores exigentes.",
+      "Macetas grandes de diseño en Lima: piezas geométricas en Polietileno HD, alta durabilidad, formato XL y sistema de Auto Riego para interiores modernos y exteriores exigentes.",
     image: contemporaneaAsset.url,
     accent: "var(--olive)",
+    keywords: [
+      "macetas grandes Lima",
+      "macetas de diseño",
+      "maceta auto riego",
+      "macetas polietileno",
+      "macetas modernas interior exterior",
+      "Bola Cylindro Copa Quattro",
+    ],
+    seoTitle: "Macetas Contemporánea · Diseño geométrico XL en Lima",
   },
   nature: {
     slug: "nature",
@@ -95,9 +106,18 @@ export const collectionsMeta: Record<CollectionSlug, CollectionMeta> = {
     eyebrow: "Colección 02",
     tagline: "Texturas naturales y artesanales",
     description:
-      "Fibras nobles —sisal, hoja de plátano y bambú— sobre base de fibra de cemento. Sofisticación relajada para salones y rincones de descanso.",
+      "Macetas artesanales en sisal, hoja de plátano y bambú sobre fibra de cemento. Texturas naturales para salones, terrazas y proyectos de decoración orgánica en Lima.",
     image: natureAsset.url,
     accent: "var(--olive-soft)",
+    keywords: [
+      "macetas artesanales Lima",
+      "macetas naturales",
+      "maceta sisal",
+      "maceta fibra cemento",
+      "macetas decorativas interior",
+      "decoración orgánica",
+    ],
+    seoTitle: "Macetas Nature · Sisal, plátano y bambú artesanales",
   },
   petite: {
     slug: "petite",
@@ -105,9 +125,17 @@ export const collectionsMeta: Record<CollectionSlug, CollectionMeta> = {
     eyebrow: "Colección 03",
     tagline: "Detalles y composiciones a menor escala",
     description:
-      "Acentos verdes para repisas, escritorios y mesas. Piezas decorativas en metal —luna, gota, macramé— y parantes en negro, dorado y bronce.",
+      "Macetas pequeñas y decorativas para escritorios, repisas y mesas. Mini Petite y Bola Petite, perfectas como regalo o detalle verde en oficinas y hogares de Lima.",
     image: petiteAsset.url,
     accent: "var(--olive-pale)",
+    keywords: [
+      "macetas pequeñas Lima",
+      "macetas para escritorio",
+      "regalos plantas oficina",
+      "mini macetas decorativas",
+      "Bola Petite",
+    ],
+    seoTitle: "Macetas Petite · Mini macetas para escritorio y repisa",
   },
   novo: {
     slug: "novo",
@@ -115,9 +143,17 @@ export const collectionsMeta: Record<CollectionSlug, CollectionMeta> = {
     eyebrow: "Colección 04",
     tagline: "Formas suaves en polietileno",
     description:
-      "Líneas redondeadas y nervaduras sutiles. Tuby, Ribby y Cuenco: piezas versátiles que conectan lo contemporáneo con lo orgánico.",
+      "Macetas en polietileno con líneas redondeadas y nervaduras sutiles. Tuby, Ribby y Cuenco: piezas livianas y versátiles para interiores y exteriores en Lima.",
     image: contemporaneaAsset.url,
     accent: "var(--olive)",
+    keywords: [
+      "macetas polietileno Lima",
+      "macetas redondeadas",
+      "maceta Tuby Ribby Cuenco",
+      "macetas livianas exterior",
+      "macetas modernas",
+    ],
+    seoTitle: "Macetas Novo · Polietileno suave para interior y exterior",
   },
   accesorios: {
     slug: "accesorios",
@@ -125,9 +161,17 @@ export const collectionsMeta: Record<CollectionSlug, CollectionMeta> = {
     eyebrow: "Complementos",
     tagline: "Colgantes y parantes en metal",
     description:
-      "Colgantes decorativos y parantes en fierro acabado negro, dorado o bronce. Pensados para realzar cada maceta y elevar la composición del espacio.",
+      "Accesorios para macetas en Lima: colgantes decorativos en metal y algodón, y parantes en fierro acabado negro, dorado o bronce. Realzan cada maceta y elevan la composición del espacio.",
     image: accentAsset.url,
     accent: "var(--olive)",
+    keywords: [
+      "accesorios para macetas Lima",
+      "parantes para macetas",
+      "colgantes para plantas",
+      "macramé colgante",
+      "soporte fierro macetas",
+    ],
+    seoTitle: "Accesorios · Colgantes y parantes para macetas en Lima",
   },
 };
 
