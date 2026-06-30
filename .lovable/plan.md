@@ -1,36 +1,23 @@
-## Cambios
+## Problema
 
-### 1. Quitar WhatsApp del header
-En `src/components/landing/Nav.tsx`: eliminar el botón "Asesoría" (link de WhatsApp) y su import de `waUrl` / `WhatsAppIcon`. El `FloatingWA` fijo abajo-derecha sigue intacto. El botón hamburguesa móvil queda solo a la derecha.
+Vite devuelve 504 al pedir `/node_modules/.vite/deps/chunk-OB7N4GO6.js`. Esto suele ocurrir tras instalar nuevas dependencias (en este caso `@supabase/supabase-js` al activar Cloud): Vite empieza a servir antes de terminar el pre-bundle de dependencias y la primera petición al chunk caduca.
 
-### 2. Más SEO por colección y accesorio
+## Solución
 
-**a) Descripciones más ricas y orientadas a búsqueda** en `src/data/catalog.ts` (`collectionsMeta`) y en `subMeta` de `src/routes/accesorios.$tipo.tsx`. Cada una con keywords naturales: "macetas [familia] Lima", "decoración interiores", materiales (fibra de vidrio, fierro), usos (interiores/exteriores, residencial/oficina).
+Pre-declarar las dependencias pesadas en `optimizeDeps.include` en `vite.config.ts` para que Vite las descubra y empaque en el primer arranque, evitando la re-optimización en caliente que provoca el 504.
 
-**b) `head()` enriquecido** en `src/routes/coleccion.$slug.tsx` y `src/routes/accesorios.$tipo.tsx`:
-- `title` con keyword + marca + ubicación (ej: "Macetas Contemporánea · Diseño minimalista en Lima · VivirBonito")
-- `description` ≤160 chars, específica por colección/tipo
-- `keywords` meta (lista por colección)
-- `og:type: "product.group"`, `og:url` absoluto a `https://somosvivirbonitolima.lovable.app/...`
-- `og:locale: "es_PE"`
-- `canonical` absoluto
+### Cambios
 
-**c) JSON-LD `CollectionPage` + `BreadcrumbList` + `ItemList`** en cada ruta de colección y accesorio, listando los productos de esa colección (nombre, familia, imagen). Mejora rich results.
+1. **`vite.config.ts`**: añadir bloque `vite.optimizeDeps.include` con:
+   - `@supabase/supabase-js`
+   - `@tanstack/react-router`
+   - `@tanstack/react-query`
+   - `react`, `react-dom/client`
 
-**d) `og:image` por colección/accesorio**: ya existe `meta.image`; convertirlo a URL absoluta usando el dominio del proyecto.
+   Mantener intactos `tanstackStart` y el resto de configuración inyectada por `@lovable.dev/vite-tanstack-config`.
 
-**e) H1 único + jerarquía**: revisar `CollectionPage.tsx` mantiene un solo `<h1>` (ya correcto) y que `FamilyBlock` use `<h2>` para familias y `<h3>` para productos (verificar en build).
+2. **Reiniciar el dev server** y limpiar la caché `.vite/deps` para forzar un pre-bundle limpio.
 
-**f) Alt text descriptivo** en `FamilyBlock` (hero familia) y en `CollectionPage` hero: usar "Maceta [familia] [colección] – [tagline corto]" en lugar de genérico.
+### Nota sobre los logs
 
-### 3. Sin cambios funcionales adicionales
-No tocar productos, navegación de accesorios ni el slider antes/después.
-
-## Archivos a modificar
-- `src/components/landing/Nav.tsx` — quitar botón WhatsApp + imports
-- `src/data/catalog.ts` — enriquecer `collectionsMeta.description`, añadir `keywords` por colección
-- `src/routes/coleccion.$slug.tsx` — head más rico + JSON-LD CollectionPage/Breadcrumb/ItemList
-- `src/routes/accesorios.$tipo.tsx` — head más rico + JSON-LD + `subMeta` con keywords
-- `src/routes/accesorios.index.tsx` — head con keywords + JSON-LD
-- `src/components/catalog/FamilyBlock.tsx` — alt descriptivo en hero familia
-- `src/components/catalog/CollectionPage.tsx` — alt descriptivo en hero
+Los warnings de hidratación que aparecen en consola provienen de la extensión **Dark Reader** del navegador (atributos `data-darkreader-*` inyectados antes de la hidratación de React). No están relacionados con el 504 y no se tocan en este plan.
