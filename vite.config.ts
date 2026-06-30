@@ -12,4 +12,15 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    optimizeDeps: {
+      include: [
+        "@supabase/supabase-js",
+        "@tanstack/react-router",
+        "@tanstack/react-query",
+        "react",
+        "react-dom/client",
+      ],
+    },
+  },
 });
